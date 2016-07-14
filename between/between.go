@@ -30,11 +30,15 @@ func Between(start time.Time, stop time.Time, timeToCompare time.Time) bool {
 		return false
 	}
 
-	if timeToCompareHour == stopHour {
-		return (utcCompare.Minute() <= utcStop.Minute())
-	} else if timeToCompareHour == startHour {
-		return (utcCompare.Minute() >= utcStart.Minute())
-	} else {
-		return true
+	if timeToCompareHour == stopHour && subHour(utcCompare) >= subHour(utcStop) {
+		return false
 	}
+	if timeToCompareHour == startHour && subHour(utcCompare) < subHour(utcStart) {
+		return false
+	}
+	return true
+}
+
+func subHour(t time.Time) time.Duration {
+	return t.Sub(t.Truncate(time.Hour))
 }
