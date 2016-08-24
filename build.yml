@@ -1,6 +1,7 @@
 ---
 platform: linux
-image: docker:///concourse/static-golang
+  type: docker-image
+  source: {repository: 140.211.168.97:5000/golang:1.6}
 
 inputs:
 - name: time-resource
